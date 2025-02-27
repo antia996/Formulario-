@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Check-in</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .form-container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .form-btn {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-btn:hover {
+      background-color: #218838;
+    }
+
+    .signature-container {
+      width: 100%;
+      height: 150px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+
+    .signature {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #ccc;
+    }
+
+    /* Estilo del cabecero */
+    header {
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    /* Estilo para el campo de firma */
+    #signature-pad {
+      border: 1px solid #ccc;
+      width: 100%;
+      height: 150px;
+    }
+
+    /* Estilo para los títulos de secciones */
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 30px; /* Añadir espacio antes del título */
+      color: #333;
+    }
+    
+    /* Botones para añadir y eliminar */
+    .add-guest-btn, .remove-guest-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+    }
+
+    .add-guest-btn {
+      background-color: #007bff;
+      color: white;
+      margin-right: 20px;
+    }
+
+    .remove-guest-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .add-guest-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .remove-guest-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* Botón enviar check-in */
+    .submit-btn {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+
+    .buttons-container {
+	display: flex;
+	justify-content: center;
+	gap: 10 px;
+	margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabecero -->
+  <header>
+    Check-in Casa Vionta
+  </header>
+
+  <!-- Formulario -->
+  
+
+  <div class="form-container">
+    <h3>Datos de la Reserva</h3>
+    <form id="checkin-form" action="guardar_checkin.php" method="POST">
+      <div class="form-group">
+        <label class="form-label" for="checkin-date">Fecha de entrada:</label>
+        <input type="date" id="checkin-date" name="checkin-date" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="checkout-date">Fecha de salida:</label>
+        <input type="date" id="checkout-date" name="checkout-date" class="form-input" required>
+      </div>
+
+      
+      <!-- Datos del huésped -->
+      <h3>Datos del Huésped</h3>
+      <div class="form-group">
+        <label class="form-label" for="name">Nombre:</label>
+        <input type="text" id="name" name="name" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="surname1">Primer apellido:</label>
+        <input type="text" id="surname1" name="surname1" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="surname2">Segundo apellido:</label>
+        <input type="text" id="surname2" name="surname2" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="gender">Sexo:</label>
+        <select id="gender" name="gender" class="form-input">
+	  <option value="" disabled selected>--Seleccionar--</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="dob">Fecha de nacimiento:</label>
+        <input type="date" id="dob" name="dob" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="nationality">País de nacionalidad:</label>
+        <input type="text" id="nationality" name="nationality" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="document-type">Tipo de documento:</label>
+        <select id="document-type" name="document-type" class="form-input">
+	  <option value="" disabled selected>--Seleccionar--</option>
+          <option value="NIF">NIF</option>
+          <option value="NIE">NIE</option>
+          <option value="Pasaporte">Pasaporte</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="document-number">Número de documento:</label>
+        <input type="text" id="document-number" name="document-number" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="document-support">Soporte documento:</label>
+        <input type="text" id="document-support" name="document-support" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="residence-country">País de residencia:</label>
+        <input type="text" id="residence-country" name="residence-country" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="province">Provincia:</label>
+        <input type="text" id="province" name="province" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="municipality">Municipio:</label>
+        <input type="text" id="municipality" name="municipality" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="address">Dirección:</label>
+        <input type="text" id="address" name="address" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="postal-code">Código postal:</label>
+        <input type="text" id="postal-code" name="postal-code" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" class="form-input" required>
+      </div>
+      
+	<div class="form-group">
+	  <label class="form-label" for="relationship">Parentesco:</label>
+  	<select id="relationship" name="relationship" class="form-input">
+    		<option value="" disabled selected>--Seleccionar--</option>
+   		 <option value="abuelo">Abuelo/a</option>
+    		<option value="bisabuelo">Bisabuelo/a</option>
+    		<option value="bisnieto">Bisnieto/a</option>
+    		<option value="cuñado">Cuñado/a</option>
+    		<option value="conyuge">Cónyuge</option>
+   		<option value="hijo">Hijo/a</option>
+    		<option value="hermano">Hermano/a</option>
+    		<option value="nieto">Nieto/a</option>
+    		<option value="padre">Padre/Madre</option>
+   		<option value="sobrino">Sobrino/a</option>
+    		<option value="suegro">Suegro/a</option>
+    		<option value="tio">Tío/a</option>
+    		<option value="yerno">Yerno/Nuera</option>
+    		<option value="tutor">Tutor/a</option>
+  	</select>
+	</div>
+
+
+      <!-- Firma -->
+      <div class="form-group">
+        <label class="form-label" for="signature">Firma:</label>
+        <div id="signature-pad" class="signature"></div>
+      </div>
+
+
+     
+      <!-- Contenedor para los botones de añadir y eliminar, centrados -->
+<div class="buttons-container">
+  <!-- Botón de Añadir huésped -->
+  <button type="button" class="add-guest-btn">
+    <i class="fas fa-plus"></i> Añadir huésped
+  </button>
+
+  <!-- Botón de Eliminar huésped -->
+  <button type="button" class="remove-guest-btn">
+    <i class="fas fa-trash-alt"></i> Eliminar huésped
+  </button>
+
+  </div>
+
+
+        
+      
+	<button type="submit" class="submit-btn">ENVIAR CHECK-IN</button>
+    </form>
+  </div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/2.3.2/signature_pad.umd.min.js"></script>
+  <script>
+    // Inicializar el campo de firma
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    // Establecer el tamaño del lienzo de la firma
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let guestCounter = 1;
+
+    document.getElementById('checkin-form').addEventListener('submit', function(event) {
+      // Si el campo de firma está vacío, mostrar advertencia
+      if (signaturePad.isEmpty()) {
+        alert("Por favor, firme el formulario.");
+        event.preventDefault();
+      }
+    });
+
+  </script>
+</body>
+</html>
